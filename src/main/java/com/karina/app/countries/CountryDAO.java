@@ -12,7 +12,7 @@ import com.karina.app.util.DBConnection;
 public class CountryDAO {
 	
 	
-	public void countryid(String coid) throws Exception {
+	public CountryDTO countryid(String coid) throws Exception {
 		DBConnection connection=new DBConnection();
 		Connection con=connection.getConnection();
 		String sql="SELECT * FROM COUNTRIES WHERE COUNTRY_ID=?";
@@ -21,18 +21,21 @@ public class CountryDAO {
 		st.setString(1, coid);
 		
 		ResultSet rs=st.executeQuery();
+		CountryDTO dto=null;
 		
 		if(rs.next()) {
-			String name=rs.getString("COUNTRY_NAME");
-			System.out.println(name);
+			dto=new CountryDTO();
+			dto.setCountryName(rs.getString("COUNTRY_NAME"));
+			dto.setCountryId(rs.getNString("COUNTRY_ID"));
+			dto.setRegionId(rs.getInt("REGION_ID"));
 			
-		}else {
-			System.out.println("정보 없음");
+			
 		}
 		rs.close();
 		st.close();
 		con.close();
 		
+		return dto;
 	}
 	
 	

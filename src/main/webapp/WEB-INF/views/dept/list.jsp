@@ -23,7 +23,7 @@
 				<c:forEach items="${list}" var="d">
 				<tr>
 					<td>${d.departmentId}</td>
-					<td>${d.departmentName}</td>
+					<td><a href="/dept/detail?departmentId=${d.departmentId}">${d.departmentName}</a></td>
 				</tr>
 					<!-- getter의 이름을 쓴다 getter메서드에서 get을뺴고 ()빼고 나온 결과물의 첫글자를 소문자로 바꾼것 -->
 					

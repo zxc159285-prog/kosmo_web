@@ -10,7 +10,7 @@ import com.karina.app.util.DBConnection;
 
 public class DepartmentDAO {
 	
-	public void detail(int departmentid) throws Exception {
+	public DepartmentDTO detail(int departmentid) throws Exception {
 		DBConnection connection=new DBConnection();
 		Connection con= connection.getConnection();
 		
@@ -23,16 +23,20 @@ public class DepartmentDAO {
 		
 		//최종전송
 		ResultSet rs=st.executeQuery();
+		DepartmentDTO dto=null;
 		
 		if(rs.next()) {
-			String name=rs.getNString("DEPARTMENT_NAME");
-			System.out.println(name);
-		}else {
-			System.out.println("부서가 없다");
+			dto=new DepartmentDTO();
+			dto.setDepartmentId(rs.getInt("DEPARTMENT_ID"));
+			dto.setDepartmentName(rs.getNString("DEPARTMENT_NAME"));
+			dto.setManagerId(rs.getInt("MANAGER_ID"));
+			dto.setLocationId(rs.getInt("LOCATION_ID"));
 		}
 		rs.close();
 		st.close();
 		con.close();
+		
+		return dto;
 	}
 	
 	public ArrayList<DepartmentDTO> list() throws Exception {
