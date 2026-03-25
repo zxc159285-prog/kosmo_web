@@ -1,12 +1,12 @@
 package com.karina.app.test.countries;
 
-import com.karina.app.countrie.CountriesDAO;
+import com.karina.app.countries.CountryDAO;
 
 public class CountriesTest {
 
 	public static void main(String[] args) {
 
-		CountriesDAO dao=new CountriesDAO();
+		CountryDAO dao=new CountryDAO();
 		try {
 			dao.countryid("IN");
 		} catch (Exception e) {

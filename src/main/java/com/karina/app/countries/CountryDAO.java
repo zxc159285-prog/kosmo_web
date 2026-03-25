@@ -1,4 +1,4 @@
-package com.karina.app.countrie;
+package com.karina.app.countries;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import com.karina.app.util.DBConnection;
 
 
-public class CountriesDAO {
+public class CountryDAO {
 	
 	
 	public void countryid(String coid) throws Exception {

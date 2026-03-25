@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.karina.app.util.DBConnection;
 
@@ -34,7 +35,7 @@ public class DepartmentDAO {
 		con.close();
 	}
 	
-	public void list() throws Exception {
+	public ArrayList<DepartmentDTO> list() throws Exception {
 		//1.DB연결
 		DBConnection connection=new DBConnection();
 		Connection con=connection.getConnection();
@@ -44,17 +45,28 @@ public class DepartmentDAO {
 		PreparedStatement st=con.prepareStatement(sql);
 		//4.최종전송 및 결과처리
 		ResultSet rs= st.executeQuery();
-		
+		ArrayList<DepartmentDTO> ar = new ArrayList<>();
 		while(rs.next()) {
+			DepartmentDTO dto=new DepartmentDTO(); 
 			String name=rs.getString("DEPARTMENT_NAME");
 			int id=rs.getInt("DEPARTMENT_ID");
-			System.out.println(name+" : "+id);
+			int mid=rs.getInt("MANAGER_ID");
+			int lid=rs.getInt("LOCATION_ID");
+			
+			dto.setDepartmentName(name);
+			dto.setDepartmentId(id);
+			dto.setManagerId(mid);
+			dto.setLocationId(lid);
+			
+			ar.add(dto);
 			
 		}
 		//연결 해제
 		rs.close();
 		st.close();
 		con.close();
+		
+		return ar;
 	}
 
 }
