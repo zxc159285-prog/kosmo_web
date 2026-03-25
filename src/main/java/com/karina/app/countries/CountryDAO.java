@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.karina.app.util.DBConnection;
 
@@ -35,7 +36,7 @@ public class CountryDAO {
 	}
 	
 	
-	public void countries() throws Exception {
+	public ArrayList<CountryDTO> countries() throws Exception {
 		//DB연결
 		
 		DBConnection connection=new DBConnection();
@@ -46,16 +47,24 @@ public class CountryDAO {
 		PreparedStatement ps= con.prepareStatement(sql);
 		//최종전송 및 결과출력
 		ResultSet rs=ps.executeQuery();
+		ArrayList<CountryDTO> ar=new ArrayList<>();
 		
 		while(rs.next()) {
+		CountryDTO dto=new CountryDTO();
 		String cid=rs.getString("COUNTRY_ID");
 		String name=rs.getString("COUNTRY_NAME");
 		int rid=rs.getInt("REGION_ID");
 		
-		System.out.println(cid+" : "+name+" : "+rid);
+		dto.setCountryId(cid);
+		dto.setCountryName(name);
+		dto.setRegionId(rid);
+		
+		ar.add(dto);
 		}
 		rs.close();
 		ps.close();
 		con.close();
+		
+		return ar;
 	}
 }

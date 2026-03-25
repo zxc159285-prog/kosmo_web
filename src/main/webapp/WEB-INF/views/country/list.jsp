@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>나라 리스트</h1>
+	<h1>국가리스트</h1>
+	<div>
+		<table>
+			<thead>
+			<tr>
+			<th></th>
+			</tr>
+			</thead>
+		
+		</table>
+	</div>
 </body>
 </html>
