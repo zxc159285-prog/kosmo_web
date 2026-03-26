@@ -54,8 +54,7 @@ public class DepartmentCreateController extends HttpServlet {
 			
 			if(result >0) {
 				response.sendRedirect("/dept/list"); //이 주소를 줄테니 이걸받고 다시 요청해라 라고 사용자에게 보내는것
-				//이렇게해야 doget메서드가 호출되어서 list.jsp를 다시 실행하는게 됨
-			}else {
+				//이렇게해야 컨트롤러클래스의 doget메서드가 실행되고 그로인해 dao의 리스트메서드가 실행됨
 				
 			}
 		} catch (Exception e) {
