@@ -12,6 +12,28 @@ import com.karina.app.util.DBConnection;
 public class CountryDAO {
 	DBConnection connection=new DBConnection();
 	
+	public int create(CountryDTO countryDTO) throws Exception {
+		Connection con=connection.getConnection();
+		String sql=
+				"""
+				INSERT INTO COUNTRIES(COUNTRY_ID,COUNTRY_NAME,REGION_ID)
+				VALUES(?,?,?)
+				""";
+		
+		PreparedStatement st=con.prepareStatement(sql);
+		
+		st.setString(1,countryDTO.getCountryId());
+		st.setString(2,countryDTO.getCountryName());
+		st.setInt(3,countryDTO.getRegionId());
+		
+		int result=st.executeUpdate();
+		
+		st.close();
+		con.close();
+		
+		return result;
+	}
+	
 	public CountryDTO countryid(String coid) throws Exception {
 		
 		Connection con=connection.getConnection();

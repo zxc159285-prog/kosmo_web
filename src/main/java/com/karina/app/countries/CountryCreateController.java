@@ -1,4 +1,4 @@
-package com.karina.app.departments;
+package com.karina.app.countries;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -9,16 +9,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet implementation class DepartmentCreateController
+ * Servlet implementation class CountryCreateController
  */
-@WebServlet("/dept/create")
-public class DepartmentCreateController extends HttpServlet {
+@WebServlet("/country/create")
+public class CountryCreateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DepartmentCreateController() {
+    public CountryCreateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,9 +27,8 @@ public class DepartmentCreateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/dept/create.jsp");
+		// TODO Auto-generated method stub
+		RequestDispatcher view=request.getRequestDispatcher("/WEB-INF/views/country/create.jsp");
 		view.forward(request, response);
 	}
 
@@ -38,23 +37,23 @@ public class DepartmentCreateController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String name=request.getParameter("departmentName");
-		String mid=request.getParameter("managerId");
-		String lid=request.getParameter("locationId");
+		String cid=request.getParameter("countryId");
+		String name=request.getParameter("countryName");
+		String rid=request.getParameter("regionId");
 		
-		DepartmentDTO departmentDTO=new DepartmentDTO();
-		departmentDTO.setDepartmentName(name);
-		departmentDTO.setManagerId(Integer.parseInt(mid));
-		departmentDTO.setLocationId(Integer.parseInt(lid));
+		CountryDTO countryDTO=new CountryDTO();
+		countryDTO.setCountryId(cid);
+		countryDTO.setCountryName(name);
+		countryDTO.setRegionId(Integer.parseInt(rid));
 		
-		DepartmentDAO departmentDAO=new DepartmentDAO();
+		CountryDAO countryDAO=new CountryDAO();
+		
 		try {
-			int result =0;//departmentDAO.create(departmentDTO);
+			int result=countryDAO.create(countryDTO);
 			
-			if(result >0) {
-				response.sendRedirect("/dept/list"); //이 주소를 줄테니 이걸받고 다시 요청해라 라고 사용자에게 보내는것 리다이렉트
-				//이렇게해야 컨트롤러클래스의 doget메서드가 실행되고 그로인해 dao의 리스트메서드가 실행됨
-				
+			
+			if(result>0) {
+				response.sendRedirect("/country/list");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
