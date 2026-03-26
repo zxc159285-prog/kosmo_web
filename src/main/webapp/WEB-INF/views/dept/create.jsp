@@ -13,17 +13,18 @@
 	
 		<div>
 		<label>부서명</label>
-		<input type="text">
+		<!-- DTO의 setter이름과 동일하게 -->
+		<input type="text" name="departmentName">
 		</div>
 		
 		<div>
 		<label>관리자코드</label>
-		<input type="text">
+		<input type="text" name="managerId">
 		</div>
 		
 		<div>	
 		<label>지역코드</label>
-		<input type="text">
+		<input type="text" name="locationId">
 		</div>
 		
 		<div>

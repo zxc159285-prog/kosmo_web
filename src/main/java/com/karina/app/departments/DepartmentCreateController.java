@@ -39,6 +39,30 @@ public class DepartmentCreateController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("DB에 저장해야돼");
+		String name=request.getParameter("departmentName");
+		String mid=request.getParameter("managerId");
+		String lid=request.getParameter("locationId");
+		
+		DepartmentDTO departmentDTO=new DepartmentDTO();
+		departmentDTO.setDepartmentName(name);
+		departmentDTO.setManagerId(Integer.parseInt(mid));
+		departmentDTO.setLocationId(Integer.parseInt(lid));
+		
+		DepartmentDAO departmentDAO=new DepartmentDAO();
+		try {
+			int result =departmentDAO.create(departmentDTO);
+			
+			if(result >0) {
+				response.sendRedirect("/dept/list"); //이 주소를 줄테니 이걸받고 다시 요청해라 라고 사용자에게 보내는것
+				//이렇게해야 doget메서드가 호출되어서 list.jsp를 다시 실행하는게 됨
+			}else {
+				
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

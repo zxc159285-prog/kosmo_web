@@ -12,7 +12,7 @@ public class DepartmentDAO {
 	DBConnection connection=new DBConnection();
 	
 	
-	public void create(DepartmentDTO departmentDTO) throws Exception {
+	public int create(DepartmentDTO departmentDTO) throws Exception {
 		
 		Connection con=connection.getConnection();
 		String sql="""
@@ -30,12 +30,15 @@ public class DepartmentDAO {
 		
 		
 		
-		int result = st.executeUpdate();
+		int result = st.executeUpdate();  //result는 row가 들어가는것 row가 한줄 들어가게 해놨으니 1이나오면 성공
 		
-		System.out.println(result);
+		
+	
 		
 		st.close();
 		con.close();
+		
+		return result;
 	}
 	
 	public DepartmentDTO detail(int departmentid) throws Exception {
