@@ -10,13 +10,13 @@ import com.karina.app.util.DBConnection;
 
 
 public class CountryDAO {
-	
+	DBConnection connection=new DBConnection();
 	
 	public CountryDTO countryid(String coid) throws Exception {
-		DBConnection connection=new DBConnection();
+		
 		Connection con=connection.getConnection();
 		String sql="SELECT * FROM COUNTRIES WHERE COUNTRY_ID=?";
-		PreparedStatement st=con.prepareStatement(sql);
+		PreparedStatement st=con.prepareStatement(sql); //sql을 디비로 컴파일해서 보냄
 		
 		st.setString(1, coid);
 		
@@ -42,7 +42,7 @@ public class CountryDAO {
 	public ArrayList<CountryDTO> countries() throws Exception {
 		//DB연결
 		
-		DBConnection connection=new DBConnection();
+		
 		Connection con=connection.getConnection();
 		//쿼리문 작성
 		String sql="SELECT * FROM COUNTRIES";

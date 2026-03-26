@@ -9,9 +9,37 @@ import java.util.ArrayList;
 import com.karina.app.util.DBConnection;
 
 public class DepartmentDAO {
+	DBConnection connection=new DBConnection();
+	
+	
+	public void create(DepartmentDTO departmentDTO) throws Exception {
+		
+		Connection con=connection.getConnection();
+		String sql="""
+				
+				INSERT INTO DEPARTMENTS (DEPARTMENT_ID,DEPARTMENT_NAME,MANAGER_ID,LOCATION_ID)
+				VALUES(DEPARTMENTS_SEQ.NEXTVAL,?,?,?)
+				
+				""";
+		
+		PreparedStatement st= con.prepareStatement(sql);
+		
+		st.setString(1, departmentDTO.getDepartmentName());
+		st.setInt(2, departmentDTO.getManagerId());
+		st.setInt(3, departmentDTO.getLocationId());
+		
+		
+		
+		int result = st.executeUpdate();
+		
+		System.out.println(result);
+		
+		st.close();
+		con.close();
+	}
 	
 	public DepartmentDTO detail(int departmentid) throws Exception {
-		DBConnection connection=new DBConnection();
+		
 		Connection con= connection.getConnection();
 		
 		String sql= "SELECT * FROM DEPARTMENTS WHERE DEPARTMENT_ID=?"; //오라클에서는 물음표가 순서대로 1번 2번 3번
@@ -28,7 +56,7 @@ public class DepartmentDAO {
 		if(rs.next()) {
 			dto=new DepartmentDTO();
 			dto.setDepartmentId(rs.getInt("DEPARTMENT_ID"));
-			dto.setDepartmentName(rs.getNString("DEPARTMENT_NAME"));
+			dto.setDepartmentName(rs.getString("DEPARTMENT_NAME"));
 			dto.setManagerId(rs.getInt("MANAGER_ID"));
 			dto.setLocationId(rs.getInt("LOCATION_ID"));
 		}
@@ -41,7 +69,7 @@ public class DepartmentDAO {
 	
 	public ArrayList<DepartmentDTO> list() throws Exception {
 		//1.DB연결
-		DBConnection connection=new DBConnection();
+		
 		Connection con=connection.getConnection();
 		//2.쿼리문작성
 		String sql="SELECT * FROM DEPARTMENTS ORDER BY DEPARTMENT_ID DESC";

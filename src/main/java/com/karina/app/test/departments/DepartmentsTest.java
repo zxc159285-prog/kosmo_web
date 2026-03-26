@@ -1,6 +1,7 @@
 package com.karina.app.test.departments;
 
 import com.karina.app.departments.DepartmentDAO;
+import com.karina.app.departments.DepartmentDTO;
 
 public class DepartmentsTest {
 
@@ -9,7 +10,12 @@ public class DepartmentsTest {
 
 		DepartmentDAO dao=new DepartmentDAO();
 		try {
-			dao.detail(50);
+			DepartmentDTO departmentDTO=new DepartmentDTO();
+			departmentDTO.setDepartmentName("Class3");
+			departmentDTO.setManagerId(null);
+			departmentDTO.setLocationId(null);
+			
+			dao.create(departmentDTO);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
