@@ -13,5 +13,9 @@
 	<h4>${dti.countryName}</h4>
 	<h4>${dti.regionId}</h4>
 	
+	<form action="/country/delete" method="get">
+		<input type="hidden" name="countryId" value="${dti.countryId}">
+		<button>DELETE</button>
+	</form>
 </body>
 </html>

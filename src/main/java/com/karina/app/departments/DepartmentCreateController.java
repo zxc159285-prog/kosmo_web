@@ -49,7 +49,7 @@ public class DepartmentCreateController extends HttpServlet {
 		
 		DepartmentDAO departmentDAO=new DepartmentDAO();
 		try {
-			int result =0;//departmentDAO.create(departmentDTO);
+			int result =departmentDAO.create(departmentDTO);
 			
 			if(result >0) {
 				response.sendRedirect("/dept/list"); //이 주소를 줄테니 이걸받고 다시 요청해라 라고 사용자에게 보내는것 리다이렉트

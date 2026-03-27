@@ -10,7 +10,39 @@ import com.karina.app.util.DBConnection;
 
 
 public class CountryDAO {
-	DBConnection connection=new DBConnection();
+	private DBConnection connection=new DBConnection();
+	
+	
+	public CountryDAO() {
+		this.connection=new DBConnection();
+	}
+	
+	public int update(CountryDTO countryDTO) throws Exception{
+		Connection con=connection.getConnection();
+		String sql="""
+				UPDATE COUNTRIES
+				SET COUNTRY_NAME="?",
+				REGION_ID="?"
+				WHERE COUNTRY_ID="?"
+				""";
+		PreparedStatement st=con.prepareStatement(sql);
+		
+		
+	}
+	public int delete(CountryDTO countryDTO) throws Exception {
+		Connection con=connection.getConnection();
+		String sql="DELETE COUNTRIES WHERE COUNTRY_ID=?";
+		
+		PreparedStatement st=con.prepareStatement(sql);
+		st.setString(1, countryDTO.getCountryId());
+		
+		int result=st.executeUpdate();
+		
+		st.close();
+		con.close();
+		
+		return result;
+	}
 	
 	public int create(CountryDTO countryDTO) throws Exception {
 		Connection con=connection.getConnection();
