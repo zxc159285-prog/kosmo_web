@@ -15,22 +15,35 @@ public class CommunityDAO {
 	private DBConnection connection=new DBConnection();
 	
 	public CommunityDAO() {
-		this.connection=new DBConnection();
+		this.connection=new DBConnection();		
 	}
-	public void detail(CommunityDTO communityDTO) throws Exception {
+
+	
+	public CommunityDTO detail(CommunityDTO communityDTO) throws Exception {
 		Connection con=connection.getConnection();
-		String sql="SELECT CONTENTS FROM COMMUNITY WHERE NUM=?";
+		String sql="SELECT * FROM COMMUNITY WHERE NUM=?";
 		PreparedStatement st=con.prepareStatement(sql);
 		st.setInt(1,communityDTO.getNum());
 		ResultSet rs=st.executeQuery();
 		
+		CommunityDTO dto=null;
+		
 		if(rs.next()) {
-			String contents=rs.getString("contents");
+			dto=new CommunityDTO();
+			dto.setNum(rs.getInt("NUM"));
+			dto.setTitle(rs.getString("TITLE"));
+			dto.setContents(rs.getString("CONTENTS"));
+			dto.setName(rs.getString("NAME"));
+			dto.setDate(rs.getDate("CREATETIME"));
+			dto.setStar(rs.getInt("STAR"));
+			
+			
 		}
 		rs.close();
 		st.close();
 		con.close();
-	}
+		return dto;
+	} 
 	
 	public ArrayList<CommunityDTO> list() throws Exception {
 		Connection con=connection.getConnection();
