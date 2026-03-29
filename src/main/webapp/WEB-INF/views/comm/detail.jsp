@@ -14,5 +14,12 @@
 	<hr>
 	<div>내용: ${dto.contents}</div>
 	<a href="/comm/list">목록으로</a>
+
+	<a href="./update?num=${dto.num}"> 수정하기 </a>
+
+	<form action="/comm/delete" method="post">
+		<input type="hidden" name="num" value="${dto.num}">
+		<button type="submit">삭제하기</button>
+	</form>
 </body>
 </html>

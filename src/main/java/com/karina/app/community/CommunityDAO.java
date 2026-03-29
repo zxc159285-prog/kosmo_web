@@ -16,14 +16,73 @@ public class CommunityDAO {
 	
 	public CommunityDAO() {
 		this.connection=new DBConnection();		
+		
 	}
-
+	public int update(CommunityDTO communityDTO) throws Exception {
+		Connection con=connection.getConnection();
+		String sql="""
+				UPDATE COMMUNITY
+				SET TITLE=?,
+				NAME=?,
+				CONTENTS=?,
+				CREATETIME=SYSDATE,
+				STAR=?
+				WHERE NUM=?
+				""";
+			PreparedStatement st=con.prepareStatement(sql);
+			st.setString(1,communityDTO.getTitle());
+			st.setString(2,communityDTO.getName());
+			st.setString(3,communityDTO.getContents());
+			st.setInt(4, communityDTO.getStar());
+			st.setInt(5,communityDTO.getNum());
+			
+			int result=st.executeUpdate();
+			st.close();
+			con.close();
+			return result;
+	}
 	
-	public CommunityDTO detail(CommunityDTO communityDTO) throws Exception {
+	public int delete(CommunityDTO communityDTO) throws Exception {
+		Connection con= connection.getConnection();
+		String sql="DELETE COMMUNITY WHERE NUM=?";
+		PreparedStatement st=con.prepareStatement(sql);
+		st.setInt(1,communityDTO.getNum());
+		int result= st.executeUpdate();
+		
+		st.close();
+		con.close();
+		return result;
+		
+		
+	}
+	public int create(CommunityDTO communityDTO) throws Exception {
+		Connection con=connection.getConnection();
+		String sql="""
+					INSERT INTO COMMUNITY(NUM,TITLE,CONTENTS,NAME,CREATETIME,STAR)
+					VALUES(COMM_SEQ.NEXTVAL,?,?,?,SYSDATE,?)
+					""";
+		PreparedStatement st=con.prepareStatement(sql);
+		
+		st.setString(1,communityDTO.getTitle());
+		st.setString(2,communityDTO.getContents() );
+		st.setString(3,communityDTO.getName());
+		st.setInt(4,communityDTO.getStar());
+		
+		int result=st.executeUpdate();
+		
+		st.close();
+		con.close();
+		return result;
+				 
+				
+		
+	}
+	
+	public CommunityDTO detail(int num) throws Exception {
 		Connection con=connection.getConnection();
 		String sql="SELECT * FROM COMMUNITY WHERE NUM=?";
 		PreparedStatement st=con.prepareStatement(sql);
-		st.setInt(1,communityDTO.getNum());
+		st.setInt(1,num);
 		ResultSet rs=st.executeQuery();
 		
 		CommunityDTO dto=null;

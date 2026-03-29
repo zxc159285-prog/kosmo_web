@@ -8,17 +8,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import com.sun.net.httpserver.Authenticator.Result;
+
 /**
- * Servlet implementation class CommunityDetailController
+ * Servlet implementation class CommunityDeleteController
  */
-@WebServlet("/comm/detail")
-public class CommunityDetailController extends HttpServlet {
+@WebServlet("/comm/delete")
+public class CommunityDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommunityDetailController() {
+    public CommunityDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,30 +29,28 @@ public class CommunityDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		int num=Integer.parseInt(request.getParameter("num"));
-		CommunityDAO communityDAO=new CommunityDAO();
-		CommunityDTO communityDTO=new CommunityDTO();
-		communityDTO.setNum(num);
-		
-		try {
-			CommunityDTO result=communityDAO.detail(num);
-			request.setAttribute("dto", result);
-			
-			RequestDispatcher view=request.getRequestDispatcher("/WEB-INF/views/comm/detail.jsp");
-			view.forward(request, response);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		RequestDispatcher view=request.getRequestDispatcher("/WEB-INF/views/comm/delete.jsp");
+		view.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		CommunityDAO dao=new CommunityDAO();
+		CommunityDTO dto=new CommunityDTO();
+		String num=request.getParameter("num");
+		dto.setNum(Integer.parseInt(num));
+		
+		try {
+			int result =dao.delete(dto);
+			if(result>0) {
+				response.sendRedirect("/comm/list");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
