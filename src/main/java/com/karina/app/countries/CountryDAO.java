@@ -17,18 +17,18 @@ public class CountryDAO {
 		this.connection=new DBConnection();
 	}
 	
-	public int update(CountryDTO countryDTO) throws Exception{
-		Connection con=connection.getConnection();
-		String sql="""
-				UPDATE COUNTRIES
-				SET COUNTRY_NAME="?",
-				REGION_ID="?"
-				WHERE COUNTRY_ID="?"
-				""";
-		PreparedStatement st=con.prepareStatement(sql);
+//	public int update(CountryDTO countryDTO) throws Exception{
+//		Connection con=connection.getConnection();
+//		String sql="""
+//				UPDATE COUNTRIES
+//				SET COUNTRY_NAME="?",
+//				REGION_ID="?"
+//				WHERE COUNTRY_ID="?"
+//				""";
+//		PreparedStatement st=con.prepareStatement(sql);
 		
 		
-	}
+//	}
 	public int delete(CountryDTO countryDTO) throws Exception {
 		Connection con=connection.getConnection();
 		String sql="DELETE COUNTRIES WHERE COUNTRY_ID=?";

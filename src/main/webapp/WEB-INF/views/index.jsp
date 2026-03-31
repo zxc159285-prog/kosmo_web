@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,11 @@
 	<a href="/dept/list">부서관리</a>
 	<a href="/country/list">나라관리</a>
 	
-
+	<c:if test="${empty dto}"> <!-- 엠티=데이터가 비어있다면 dto라는 속성명이 중요함-->
+	<a href="/emp/login">Login</a>
+	</c:if>
+	<c:if test="${not empty dto}">
+	<a href="/emp/logout">Logout</a>
+	</c:if>
 </body>
 </html>
